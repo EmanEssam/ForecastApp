@@ -168,10 +168,10 @@ class HomeFragment : Fragment() {
                 .into(binding.weatherIc)
             binding.tvDate.text = it.location.localtime
             binding.tvCity.text = it.location.country
-            binding.tvTime.text = it.current.condition.text
+//            binding.tvTime.text = it.current.condition.text
             binding.tvSunDown.text = it.forecast.forecastday.first().astro.sunset
             binding.tvSunRise.text = it.forecast.forecastday.first().astro.sunrise
-            (it.current.temp_c.toInt().toString() + "°C").also { binding.tvDegree.text = it }
+            (it.forecast.forecastday.first().day.maxtemp_c.toInt().toString() + "°C").also { binding.tvDegree.text = it }
             (it.forecast.forecastday.first().hour.first().wind_kph.toInt()
                 .toString() + " Kph").also { binding.tvWind.text = it }
         })

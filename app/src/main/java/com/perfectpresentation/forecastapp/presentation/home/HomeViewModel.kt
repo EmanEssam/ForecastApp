@@ -2,7 +2,6 @@ package com.perfectpresentation.forecastapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.perfectpresentation.forecastapp.BuildConfig
 import com.perfectpresentation.forecastapp.data.model.ForecastResponse
 import com.perfectpresentation.forecastapp.data.repository.ForecastRepository
 import com.perfectpresentation.forecastapp.helper.SingleLiveEvent

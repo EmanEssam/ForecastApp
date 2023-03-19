@@ -1,7 +1,6 @@
 package com.perfectpresentation.forecastapp.data.model
 
-data class ForecastResponse<T>(
-    val current: Current,
+data class ForecastResponse<Any>(
     val forecast: Forecast,
     val location: Location
 )
