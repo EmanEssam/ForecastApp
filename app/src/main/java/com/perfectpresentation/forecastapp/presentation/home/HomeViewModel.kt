@@ -2,7 +2,8 @@ package com.perfectpresentation.forecastapp.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.perfectpresentation.forecastapp.data.model.Forecastday
+import com.perfectpresentation.forecastapp.BuildConfig
+import com.perfectpresentation.forecastapp.data.model.ForecastResponse
 import com.perfectpresentation.forecastapp.data.repository.ForecastRepository
 import com.perfectpresentation.forecastapp.helper.SingleLiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,20 +14,21 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) :
     ViewModel() {
-    private val forecastDataResponse = SingleLiveEvent<List<Forecastday>>()
-    private val photosError = SingleLiveEvent<String>()
+    val forecastDataResponse = SingleLiveEvent<ForecastResponse<Any>>()
+    val photosError = SingleLiveEvent<String>()
 
     @ExperimentalCoroutinesApi
-    fun getForecastByLocation(searchKey: String = "a", apiKey: String) = viewModelScope.launch {
-        try {
-            forecastRepository.getForecastByLocation(searchKey, apiKey).let {
-                forecastDataResponse.postValue(it.forecast.forecastday)
+    fun getForecastByLocation(searchKey: String = "48.8567,2.3508") =
+        viewModelScope.launch {
+            try {
+                forecastRepository.getForecastByLocation(searchKey).let {
+                    forecastDataResponse.postValue(it)
 
+                }
+            } catch (e: Exception) {
+                photosError.postValue(e.message)
             }
-        } catch (e: Exception) {
-            photosError.postValue(e.message)
         }
-    }
 
 
 }
