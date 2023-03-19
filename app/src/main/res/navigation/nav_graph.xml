@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/HomeFragment">
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.perfectpresentation.forecastapp.presentation.home.HomeFragment"
+        android:label="Home Fragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_weatherDetailsFragment"
+            app:destination="@id/weatherDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/weatherDetailsFragment"
+        android:name="com.perfectpresentation.forecastapp.presentation.WeatherDetails.WeatherDetailsFragment"
+        android:label="Weather Details Fragment"
+        tools:layout="@layout/fragment_weather_details" />
+</navigation>
