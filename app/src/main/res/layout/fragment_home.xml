@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.home.HomeFragment">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:queryHint="search city"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="320dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/searchView"
+           />
+
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:paddingTop="32dp"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
+            tools:text="Cloudy" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            tools:text="Cloudy" />
+
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tvTime"
+            tools:text="Cloudy" />
+
+        <ImageView
+            android:id="@+id/weatherIc"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_margin="16dp"
+            android:visibility="gone"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCity" />
+
+        <TextView
+            android:id="@+id/tvDegree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/weatherIc"
+            tools:text="Cloudy" />
+
+        <TextView
+            android:id="@+id/tvWind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:fontFamily="sans-serif"
+
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="45sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDegree"
+            tools:text="Cloudy" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_wind"
+
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tvWind"
+            app:layout_constraintStart_toEndOf="@+id/tvWind"
+            app:layout_constraintTop_toTopOf="@+id/tvWind" />
+
+        <TextView
+            android:id="@+id/tvSunRise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+
+            android:layout_marginBottom="18dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWind"
+            tools:text="Cloudy" />
+
+        <ImageView
+            android:id="@+id/icSunRise"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:src="@drawable/weather_sunset_up_ic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSunRise"
+            app:layout_constraintStart_toEndOf="@+id/tvSunRise"
+            app:layout_constraintTop_toTopOf="@+id/tvSunRise" />
+
+        <TextView
+            android:id="@+id/tvSunDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="64dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvWind"
+            tools:text="Cloudy" />
+
+        <ImageView
+            android:id="@+id/icSunDown"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/weather_sunset_down_ic"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/tvSunDown"
+            app:layout_constraintStart_toEndOf="@+id/tvSunDown"
+            app:layout_constraintTop_toTopOf="@+id/tvSunDown" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/weatherDaysRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/icSunDown"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_weather_day" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
