@@ -9,17 +9,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
-class NetworkModule {
-    @Module
-    @InstallIn(SingletonComponent::class)
-    object NetworkModule {
-        @Provides
-        fun provideForecastApi(
-            remoteDataSource: RetrofitFactory,
-            @ApplicationContext context: Context
-        ): ApiInterface {
-            return remoteDataSource.getService()
-        }
-
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+    @Provides
+    fun provideForecastApi(
+        remoteDataSource: RetrofitFactory,
+        @ApplicationContext context: Context
+    ): ApiInterface {
+        return remoteDataSource.getService()
     }
+
 }
