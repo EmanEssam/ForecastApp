@@ -1,10 +1,9 @@
 package com.perfectpresentation.forecastapp.di
 
 import android.content.Context
-import androidx.room.Database
 import androidx.room.Room
-import com.perfectpresentation.forecastapp.data.local.CurrentWeatherDao
-import com.perfectpresentation.forecastapp.data.local.CurrentWeatherDatabase
+import com.perfectpresentation.forecastapp.data.local.AppDatabase
+import com.perfectpresentation.forecastapp.data.local.WeatherDataDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,16 +16,17 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext appContext: Context): CurrentWeatherDatabase {
+    fun provideAppDatabase(@ApplicationContext appContext: Context): AppDatabase {
         return Room.databaseBuilder(
             appContext,
-            CurrentWeatherDatabase::class.java,
+            AppDatabase::class.java,
             "currentWeatherDB"
-        ).fallbackToDestructiveMigration().build()
+        ).build()
     }
 
     @Provides
-    fun provideCurrentWeatherDao(currentWeatherDatabase: CurrentWeatherDatabase): CurrentWeatherDao {
-        return currentWeatherDatabase.currentWeatherDao
+    fun provideCurrentWeatherDao(currentWeatherDatabase: AppDatabase): WeatherDataDao {
+        return currentWeatherDatabase.weatherDataDao()
     }
+
 }

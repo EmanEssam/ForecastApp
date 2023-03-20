@@ -16,6 +16,7 @@ import com.perfectpresentation.forecastapp.databinding.FragmentHomeBinding
 import com.perfectpresentation.forecastapp.databinding.FragmentWeatherDetailsBinding
 import com.perfectpresentation.forecastapp.presentation.home.HomeViewModel
 import com.perfectpresentation.forecastapp.presentation.home.adapter.DayWeatherAdapter
+import com.perfectpresentation.forecastapp.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -44,21 +45,21 @@ class WeatherDetailsFragment : Fragment() {
 
     private fun setUpObserver() {
         lifecycleScope.launch {
-            homeViewModel.getForecastByLocation()
+            homeViewModel.getForecastByLocation(Constants.DEFAULT_lATITUDE + "," + Constants.DEFAULT_lONGITUDE)
         }
         homeViewModel.forecastDataResponse.observe(this, Observer {
             Glide.with(requireContext())
-                .load("https:" + it.forecast.forecastday.first().day.condition.icon)
+                .load("https:" + it.forecast?.forecastday?.first()?.day?.condition?.icon)
                 .into(binding.weatherIc)
-            binding.tvDate.text = it.location.localtime
-            binding.tvCity.text = it.location.country
-            binding.tvTime.text = it.forecast.forecastday.first().day.condition.text
-            binding.tvSunDown.text = it.forecast.forecastday.first().astro.sunset
-            binding.tvSunRise.text = it.forecast.forecastday.first().astro.sunrise
-            (it.forecast.forecastday.first().day.maxtemp_c.toInt()
+            binding.tvDate.text = it.location?.localtime
+            binding.tvCity.text = it.location?.country
+            binding.tvTime.text = it.forecast?.forecastday?.first()?.day?.condition?.text
+            binding.tvSunDown.text = it.forecast?.forecastday?.first()?.astro?.sunset
+            binding.tvSunRise.text = it.forecast?.forecastday?.first()?.astro?.sunrise
+            (it.forecast?.forecastday?.first()?.day?.maxtemp_c?.toInt()
                 .toString() + "°C").also { binding.tvDegree.text = it }
 
-            (it.forecast.forecastday.first().hour.first().wind_kph.toInt()
+            (it.forecast?.forecastday?.first()?.hour?.first()?.wind_kph?.toInt()
                 .toString() + "Kph").also { binding.tvWind.text = it }
 
         })
