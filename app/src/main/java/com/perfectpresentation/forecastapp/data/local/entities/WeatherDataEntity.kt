@@ -11,6 +11,9 @@ class WeatherDataEntity {
         @PrimaryKey(autoGenerate = true)
         val weatherId: Int = 0,
         val weatherDate: String = "",
+        val weatherCondition: String = "",
+        val conditionLogo: String = "",
+        val location:String="",
         val weatherTime: String = "",
         val degreeF: String = "",
         val degreeC: String = "",

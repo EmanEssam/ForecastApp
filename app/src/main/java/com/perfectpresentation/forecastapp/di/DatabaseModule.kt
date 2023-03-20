@@ -21,7 +21,7 @@ object DatabaseModule {
             appContext,
             AppDatabase::class.java,
             "currentWeatherDB"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Provides
