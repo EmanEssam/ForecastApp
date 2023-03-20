@@ -18,18 +18,18 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) :
     ViewModel() {
-    val forecastDataResponse = SingleLiveEvent<ForecastResponse<Any>>()
-    val forecastDataError = SingleLiveEvent<String>()
+    var forecastDataResponse = SingleLiveEvent<ForecastResponse<Any>>()
+    var forecastDataError = SingleLiveEvent<String>()
     val foreCastSavedData = SingleLiveEvent<WeatherDataEntity.WeatherData>()
 
     private val _data = MutableStateFlow<ForecastResponse<Any>>(ForecastResponse(null, null))
     val data: StateFlow<ForecastResponse<Any>> get() = _data
 
     @ExperimentalCoroutinesApi
-    fun getForecastByLocation(searchKey: String) =
+    fun getForecastByLocation(searchKey: String,date:String="2023-03-21") =
         viewModelScope.launch {
             try {
-                forecastRepository.getForecastByLocation(searchKey).let {
+                forecastRepository.getForecastByLocation(searchKey,date).let {
                     forecastDataResponse.postValue(it)
 
                 }

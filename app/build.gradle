@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'androidx.navigation.safeargs'
+
 }
 
 android {
@@ -39,7 +41,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
@@ -62,6 +63,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.0'
     implementation 'androidx.activity:activity-ktx:1.6.1'
 
+
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.15.0'
 
@@ -78,9 +80,19 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //Mockito
+//    debugImplementation "org.mockito:mockito-android:3.12.4"
+    testImplementation "org.mockito:mockito-android:3.12.4"
+//    androidTestImplementation "org.mockito:mockito-android:3.12.4"
+//    debugImplementation "org.mockito:mockito-inline:3.2.4"
+//    androidTestImplementation 'org.mockito:mockito-android:3.12.4'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 }
+
+
 kapt {
     correctErrorTypes = true
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.perfectpresentation.forecastapp.R
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 class WeatherDetailsFragment : Fragment() {
     private lateinit var binding: FragmentWeatherDetailsBinding
     private val homeViewModel: HomeViewModel by viewModels()
+    private var dateArgs: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,12 +42,14 @@ class WeatherDetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        dateArgs = arguments?.getString("weather").toString()
         setUpObserver()
     }
 
     private fun setUpObserver() {
         lifecycleScope.launch {
-            homeViewModel.getForecastByLocation(Constants.DEFAULT_lATITUDE + "," + Constants.DEFAULT_lONGITUDE)
+            homeViewModel.getForecastByLocation(Constants.DEFAULT_lATITUDE + "," + Constants.DEFAULT_lONGITUDE,
+            date = dateArgs)
         }
         homeViewModel.forecastDataResponse.observe(this, Observer {
             Glide.with(requireContext())

@@ -12,7 +12,11 @@
 
         <action
             android:id="@+id/action_homeFragment_to_weatherDetailsFragment"
-            app:destination="@id/weatherDetailsFragment" />
+            app:destination="@id/weatherDetailsFragment">
+            <argument
+                android:name="weather"
+                app:argType="string" />
+        </action>
 
     </fragment>
 

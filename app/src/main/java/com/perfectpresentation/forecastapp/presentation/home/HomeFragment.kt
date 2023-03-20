@@ -43,7 +43,6 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestLocationPermission()
-
     }
 
     private fun requestLocationPermission() {
@@ -62,6 +61,8 @@ class HomeFragment : Fragment() {
                             location.latitude.toString(),
                             location.longitude.toString()
                         )
+                        Constants.DEFAULT_lATITUDE = location.latitude.toString()
+                        Constants.DEFAULT_lONGITUDE = location.longitude.toString()
                     } else {
                         getDefaultLocationWeather()
                     }
@@ -126,8 +127,11 @@ class HomeFragment : Fragment() {
 
 
     private fun setUpObserver() {
+        getDefaultLocationWeather()
         homeViewModel.forecastDataResponse.observe(this, Observer {
             hideProgressDialog()
+            Constants.DEFAULT_lONGITUDE = it.location?.lon.toString()
+            Constants.DEFAULT_lATITUDE = it.location?.lat.toString()
             showHomeViews()
             it.forecast?.forecastday?.let { it1 -> setUpWeatherDataList(it1) }
             bindDataToViews(it)
@@ -164,7 +168,9 @@ class HomeFragment : Fragment() {
 
     private fun navigateToDetailsScreen(it: Forecastday) {
         val navController = Navigation.findNavController(requireView())
-        navController.navigate(R.id.action_homeFragment_to_weatherDetailsFragment)
+        val action =
+            HomeFragmentDirections.actionHomeFragmentToWeatherDetailsFragment(it.date)
+        navController.navigate(action)
     }
 
     private fun handleSearchViewByCityName() {

@@ -17,9 +17,14 @@ class ForecastRepositoryImpl @Inject constructor(
 
 
     override suspend fun getForecastByLocation(
-        searchKey: String
+        searchKey: String,
+        date: String
     ): ForecastResponse<Any> {
-        val forecastData = apiInterface.getCurrentWeatherByLocation(searchKey, BuildConfig.API_KEY)
+        val forecastData = apiInterface.getCurrentWeatherByLocation(
+            searchKey,
+            BuildConfig.API_KEY,
+            startDate = date
+        )
         withContext(Dispatchers.IO) {
             val weatherData = WeatherDataEntity.WeatherData(
                 weatherDate = forecastData.forecast?.forecastday?.first()?.date!!,
