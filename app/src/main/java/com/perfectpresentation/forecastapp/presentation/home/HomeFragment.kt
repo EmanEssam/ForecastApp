@@ -87,7 +87,25 @@ class HomeFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        setUpObserver()
+        if (!isInternetConnected()) {
+            hideProgressDialog()
+            homeViewModel.getSavedForecastData()
+            homeViewModel.foreCastSavedData.observe(this, Observer {
+                showHomeViews()
+                Glide.with(requireContext())
+                    .load("https:" + it.conditionLogo)
+                    .into(binding.weatherIc)
+                binding.tvDate.text = it.weatherTime
+                binding.tvCity.text = it.location
+                binding.tvSunDown.text = it.sunsetTime
+                binding.tvSunRise.text = it.sunriseTime
+                (it.degreeC + "°C").also { binding.tvDegree.text = it }
+                (it.windSpeedKph
+                    .toString() + " Kph").also { binding.tvWind.text = it }
+            })
+        } else {
+            setUpObserver()
+        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -140,6 +158,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpObserver() {
+        lifecycleScope.launch {
+            homeViewModel.getForecastByLocation(
+                Constants.DEFAULT_lATITUDE + "," + Constants.DEFAULT_lONGITUDE
+            )
+        }
         homeViewModel.forecastDataResponse.observe(this, Observer {
             hideProgressDialog()
             showHomeViews()
@@ -180,16 +203,11 @@ class HomeFragment : Fragment() {
             (it.forecast?.forecastday?.first()?.hour?.first()?.wind_kph?.toInt()
                 .toString() + " Kph").also { binding.tvWind.text = it }
         })
-
         homeViewModel.forecastDataError.observe(this, Observer
         {
-
-//            val navController = Navigation.findNavController(requireView())
-//            navController.navigate(R.id.action_homeFragment_to_weatherDetailsFragment)
-
-
+            hideProgressDialog()
+            showLongToast(it)
         })
-        showLongToast(homeViewModel.data.value.toString())
     }
 
     companion object {
@@ -198,7 +216,6 @@ class HomeFragment : Fragment() {
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeFragment().apply {
-
             }
     }
 
@@ -238,7 +255,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun isInternetConnected(): Boolean {
+    private fun isInternetConnected(): Boolean {
         val connectivityManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = connectivityManager.activeNetwork ?: return false
