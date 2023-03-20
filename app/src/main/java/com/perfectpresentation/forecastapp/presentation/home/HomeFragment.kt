@@ -2,8 +2,12 @@ package com.perfectpresentation.forecastapp.presentation.home
 
 import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -171,7 +176,8 @@ class HomeFragment : Fragment() {
 //            binding.tvTime.text = it.current.condition.text
             binding.tvSunDown.text = it.forecast.forecastday.first().astro.sunset
             binding.tvSunRise.text = it.forecast.forecastday.first().astro.sunrise
-            (it.forecast.forecastday.first().day.maxtemp_c.toInt().toString() + "°C").also { binding.tvDegree.text = it }
+            (it.forecast.forecastday.first().day.maxtemp_c.toInt()
+                .toString() + "°C").also { binding.tvDegree.text = it }
             (it.forecast.forecastday.first().hour.first().wind_kph.toInt()
                 .toString() + " Kph").also { binding.tvWind.text = it }
         })
@@ -230,5 +236,15 @@ class HomeFragment : Fragment() {
                 Constants.DEFAULT_lATITUDE + "," + Constants.DEFAULT_lONGITUDE
             )
         }
+    }
+
+    fun isInternetConnected(): Boolean {
+        val connectivityManager =
+            context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val network = connectivityManager.activeNetwork ?: return false
+        val networkCapabilities =
+            connectivityManager.getNetworkCapabilities(network) ?: return false
+        return networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
     }
 }

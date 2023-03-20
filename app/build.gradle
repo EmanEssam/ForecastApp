@@ -47,6 +47,7 @@ dependencies {
 
     //Hilt Dependency
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation 'androidx.room:room-ktx:2.5.0'
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
     //Retrofit
@@ -67,6 +68,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // moshi for parsing the JSON format
+    def moshi_version = "1.9.3"
+    implementation "com.squareup.moshi:moshi:1.13.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.13.0"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.13.0"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
